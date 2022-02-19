@@ -165,7 +165,7 @@ namespace VatSys.Plugins
                 var client = new RestClient("https://aviation-reference-data.p.rapidapi.com/airports/" + airportCode);
                 var request = new RestRequest(Method.GET);
                 request.AddHeader("x-rapidapi-host", "aviation-reference-data.p.rapidapi.com");
-                request.AddHeader("x-rapidapi-key", "f15025cd2cmsh3af33e491c76174p1c5381jsn03476d3f5108");
+                request.AddHeader("x-rapidapi-key", RAPIDAPI_KEY);
                 IRestResponse response = client.Execute(request);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
