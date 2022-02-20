@@ -28,13 +28,20 @@ namespace VatSys.Plugins
         {
             string callsign = updated.ActualAircraft.Callsign;
 
-            DateTime dtLiftoff = trackDateTimeLeftGround.GetOrAdd(callsign, DateTime.MinValue);
+            if (callsign == "")
+                return;
 
-            if (!updated.OnGround && dtLiftoff == DateTime.MinValue)
+            DateTime dtLiftoff; // = trackDateTimeLeftGround.GetOrAdd(callsign, DateTime.MinValue);
+
+            if (updated.OnGround && trackDateTimeLeftGround.ContainsKey(callsign))
             {
-                trackDateTimeLeftGround.TryUpdate(callsign, DateTime.UtcNow, DateTime.MinValue);
-
+                trackDateTimeLeftGround.TryRemove(callsign, out dtLiftoff);
+            }
+            else if (!updated.OnGround && updated.CorrectedAltitude < 5000 && !trackDateTimeLeftGround.ContainsKey(callsign))
+            {
                 dtLiftoff = DateTime.UtcNow;
+
+                trackDateTimeLeftGround.TryAdd(callsign, dtLiftoff);
             }
 
             //updated.CorrectedAltitude;
@@ -43,30 +50,48 @@ namespace VatSys.Plugins
 
         public CustomLabelItem GetCustomLabelItem(string itemType, Track track, FDP2.FDR flightDataRecord, RDP.RadarTrack radarTrack)
         {
-            //if (itemType != LABEL_ITEM)
-            //    return null;
+            if (itemType != LABEL_ITEM)
+                return null;
 
-            //DateTime dtLiftoff=DateTime.MinValue;
-            //trackDateTimeLeftGround.TryGetValue(flightDataRecord.Callsign, out dtLiftoff);
+            string callsign = radarTrack.ActualAircraft.Callsign;
 
-            //if (dtLiftoff == DateTime.MinValue)
-            //    return null;
+            if (callsign == "" || !trackDateTimeLeftGround.ContainsKey(callsign))
+                return null;
 
-            //string callsign = radarTrack.ActualAircraft.Callsign;
+            DateTime dtLiftoff = DateTime.MinValue;
+            trackDateTimeLeftGround.TryGetValue(callsign, out dtLiftoff);
 
-            //TimeSpan tsTimeSinceLiftoff = DateTime.UtcNow - dtLiftoff;
+            if (dtLiftoff == DateTime.MinValue)
+                return null;
 
-            //if (tsTimeSinceLiftoff.TotalMinutes <= 3.0)
-            //{
-            //    return new CustomLabelItem()
-            //    {
-            //        Type = itemType,
-            //        ForeColourIdentity = Colours.Identities.StaticTools,
-            //        Text = tsTimeSinceLiftoff.ToString("m:ss")
-            //    };
-            //}
-            //else
-            return null;
+            TimeSpan tsTimeSinceLiftoff = DateTime.UtcNow - dtLiftoff;
+
+            double displayTime = 3.0;
+            if (flightDataRecord != null)
+            {
+                switch (flightDataRecord.AircraftWake)
+                {
+                    case "H":
+                    case "M":
+                        displayTime = 2.0;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            if (tsTimeSinceLiftoff.TotalMinutes <= displayTime)
+            {
+                return new CustomLabelItem()
+                {
+                    Type = itemType,
+                    ForeColourIdentity = Colours.Identities.StaticTools,
+                    Text = tsTimeSinceLiftoff.ToString(" m\\:ss")
+                };
+            }
+            else
+                return null;
 
         }
 

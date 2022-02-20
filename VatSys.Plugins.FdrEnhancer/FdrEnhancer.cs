@@ -15,7 +15,7 @@ namespace VatSys.Plugins
         const string stdMsgPrefix = ".";
         //const string airportMsgPrefix = "*";
 
-        const string RAPIDAPI_KEY = "";
+        const string RAPIDAPI_KEY = "zzz";
 
         ConcurrentDictionary<string, string> airlineCallsigns = new ConcurrentDictionary<string, string>();
         ConcurrentDictionary<string, string> airportNames = new ConcurrentDictionary<string, string>();
@@ -37,6 +37,7 @@ namespace VatSys.Plugins
                 if (routeTextSections.Length > 1)
                 {
                     waypoint = routeTextSections[1];
+                    if (waypoint == "DCT") waypoint = routeTextSections[2];
                 }
 
                 string airlineCallsign = LookupAirlineCallsign(updated.Callsign);
@@ -59,6 +60,15 @@ namespace VatSys.Plugins
                     //if (updated.IsTrackedByMe && !updated.OtherInfoString.Contains("/FDRENH/"))
                     //updated.Remarks += $"/FDRENH/ AIRPORT/{airportName} AIRLINE/{airlineCallsign}";
 
+                }
+                else
+                {
+                    // Airline callsign + Dest Apt
+                    if (airportName.Length > 6) airportName = airportName.Substring(0, 6);
+                    if (airlineCallsign != "") sep = "*";
+                    if (airlineCallsign.Length > 6) airlineCallsign = airlineCallsign.Substring(0, 6);
+
+                    updated.LocalOpData = stdMsgPrefix + airportName + sep + airlineCallsign;
                 }
             }
 
