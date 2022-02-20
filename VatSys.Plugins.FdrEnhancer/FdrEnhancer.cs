@@ -6,6 +6,7 @@ using vatsys;
 using vatsys.Plugin;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace VatSys.Plugins
 {
@@ -15,13 +16,29 @@ namespace VatSys.Plugins
         const string stdMsgPrefix = ".";
         //const string airportMsgPrefix = "*";
 
-        const string RAPIDAPI_KEY = "zzz";
+        string RapidApi_Key;
 
         ConcurrentDictionary<string, string> airlineCallsigns = new ConcurrentDictionary<string, string>();
         ConcurrentDictionary<string, string> airportNames = new ConcurrentDictionary<string, string>();
 
         /// Plugin Name
         public string Name { get => "FDR Enhancer"; }
+
+        public FdrEnhancer()
+        {
+            string pluginsFolder = Path.Combine(vatsys.Helpers.GetProgramFolder(), "bin", "Plugins");
+            StreamReader sr = new StreamReader(Path.Combine(pluginsFolder, "FdrEnhancer_Config.txt"));
+            while (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                if (line.Trim().StartsWith("RAPIDAPI_KEY"))
+                {
+                    string val = line.Substring(line.IndexOf("=") + 1).Trim();
+                    RapidApi_Key = val;
+                }
+            }
+            sr.Close();
+        }
 
         public void OnFDRUpdate(FDP2.FDR updated)
         {
@@ -32,7 +49,6 @@ namespace VatSys.Plugins
                 string waypoint = "";
                 string sep = "";
                 string airportName = LookupAirportName(updated.DesAirport);
-                //airportName = vatsys.Airspace2.GetAirport(updated.DesAirport).FullName;
 
                 if (routeTextSections.Length > 1)
                 {
@@ -42,11 +58,13 @@ namespace VatSys.Plugins
 
                 string airlineCallsign = LookupAirlineCallsign(updated.Callsign);
 
-                if (updated.State == FDP2.FDR.FDRStates.STATE_PREACTIVE && updated.RunwayString == "" && airlineCallsign != "")
-                {
-                    updated.LocalOpData = stdMsgPrefix + airlineCallsign;
-                }
-                else if (updated.State == FDP2.FDR.FDRStates.STATE_PREACTIVE && updated.RunwayString == "" && airlineCallsign == "")
+                //if (updated.State == FDP2.FDR.FDRStates.STATE_PREACTIVE && updated.RunwayString == "" && airlineCallsign != "")
+                //{
+                //    updated.LocalOpData = stdMsgPrefix + airlineCallsign;
+                //}
+                //else 
+                
+                if (updated.State == FDP2.FDR.FDRStates.STATE_PREACTIVE && updated.RunwayString == "" && airlineCallsign == "")
                 {
                     updated.LocalOpData = stdMsgPrefix + airportName;
                 }
@@ -140,22 +158,26 @@ namespace VatSys.Plugins
                 }
                 else
                 {
-                    var client = new RestClient("https://aviation-reference-data.p.rapidapi.com/airline/" + callsignTextOnly);
-                    var request = new RestRequest(Method.GET);
-                    request.AddHeader("x-rapidapi-host", "aviation-reference-data.p.rapidapi.com");
-                    request.AddHeader("x-rapidapi-key", RAPIDAPI_KEY);
-                    IRestResponse response = client.Execute(request);
-
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (RapidApi_Key != "")
                     {
-                        JObject jsonResponse = JObject.Parse(response.Content);
-                        if (jsonResponse.ContainsKey("callSign"))
-                        {
-                            airlineCallsign = jsonResponse["callSign"].ToString();
+                        var client = new RestClient("https://aviation-reference-data.p.rapidapi.com/airline/" + callsignTextOnly);
+                        var request = new RestRequest(Method.GET);
+                        request.AddHeader("x-rapidapi-host", "aviation-reference-data.p.rapidapi.com");
+                        request.AddHeader("x-rapidapi-key", RapidApi_Key);
+                        IRestResponse response = client.Execute(request);
 
-                            airlineCallsigns.TryAdd(callsignTextOnly, airlineCallsign);
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            JObject jsonResponse = JObject.Parse(response.Content);
+                            if (jsonResponse.ContainsKey("callSign"))
+                            {
+                                airlineCallsign = jsonResponse["callSign"].ToString();
+
+                                airlineCallsigns.TryAdd(callsignTextOnly, airlineCallsign);
+                            }
                         }
                     }
+
                 }
             }
 
@@ -172,21 +194,28 @@ namespace VatSys.Plugins
             }
             else
             {
-                var client = new RestClient("https://aviation-reference-data.p.rapidapi.com/airports/" + airportCode);
-                var request = new RestRequest(Method.GET);
-                request.AddHeader("x-rapidapi-host", "aviation-reference-data.p.rapidapi.com");
-                request.AddHeader("x-rapidapi-key", RAPIDAPI_KEY);
-                IRestResponse response = client.Execute(request);
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (RapidApi_Key != "")
                 {
-                    JObject jsonResponse = JObject.Parse(response.Content);
-                    if (jsonResponse.ContainsKey("name"))
-                    {
-                        airportName = jsonResponse["name"].ToString();
+                    var client = new RestClient("https://aviation-reference-data.p.rapidapi.com/airports/" + airportCode);
+                    var request = new RestRequest(Method.GET);
+                    request.AddHeader("x-rapidapi-host", "aviation-reference-data.p.rapidapi.com");
+                    request.AddHeader("x-rapidapi-key", RapidApi_Key);
+                    IRestResponse response = client.Execute(request);
 
-                        airportNames.TryAdd(airportCode, airportName);
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        JObject jsonResponse = JObject.Parse(response.Content);
+                        if (jsonResponse.ContainsKey("name"))
+                        {
+                            airportName = jsonResponse["name"].ToString();
+
+                            airportNames.TryAdd(airportCode, airportName);
+                        }
                     }
+                }
+                else
+                {
+                    airportName = vatsys.Airspace2.GetAirport(airportCode).FullName;
                 }
             }
 

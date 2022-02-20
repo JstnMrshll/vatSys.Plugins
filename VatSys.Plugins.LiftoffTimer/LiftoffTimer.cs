@@ -15,7 +15,7 @@ namespace VatSys.Plugins
         /// The name of the custom label item we've added to Labels.xml in the Profile
         const string LABEL_ITEM = "TIME_SINCE_LIFTOFF";
 
-        ConcurrentDictionary<string, DateTime> trackDateTimeLeftGround = new ConcurrentDictionary<string, DateTime>();
+        ConcurrentDictionary<string, TrackingAircraftStatus> trackDateTimeLeftGround = new ConcurrentDictionary<string, TrackingAircraftStatus>();
 
         /// Plugin Name
         public string Name { get => "Liftoff Timer"; }
@@ -31,21 +31,16 @@ namespace VatSys.Plugins
             if (callsign == "")
                 return;
 
-            DateTime dtLiftoff; // = trackDateTimeLeftGround.GetOrAdd(callsign, DateTime.MinValue);
+            TrackingAircraftStatus acStatus = new TrackingAircraftStatus(updated.OnGround);
 
-            if (updated.OnGround && trackDateTimeLeftGround.ContainsKey(callsign))
+            acStatus = trackDateTimeLeftGround.GetOrAdd(callsign, acStatus);
+
+            if (acStatus.OnGround && !updated.OnGround)
             {
-                trackDateTimeLeftGround.TryRemove(callsign, out dtLiftoff);
-            }
-            else if (!updated.OnGround && updated.CorrectedAltitude < 5000 && !trackDateTimeLeftGround.ContainsKey(callsign))
-            {
-                dtLiftoff = DateTime.UtcNow;
+                TrackingAircraftStatus newStatus = new TrackingAircraftStatus(updated.OnGround, DateTime.UtcNow);
 
-                trackDateTimeLeftGround.TryAdd(callsign, dtLiftoff);
+                trackDateTimeLeftGround.TryUpdate(callsign, newStatus, acStatus);
             }
-
-            //updated.CorrectedAltitude;
-            //updated.VerticalSpeed;
         }
 
         public CustomLabelItem GetCustomLabelItem(string itemType, Track track, FDP2.FDR flightDataRecord, RDP.RadarTrack radarTrack)
@@ -58,13 +53,13 @@ namespace VatSys.Plugins
             if (callsign == "" || !trackDateTimeLeftGround.ContainsKey(callsign))
                 return null;
 
-            DateTime dtLiftoff = DateTime.MinValue;
-            trackDateTimeLeftGround.TryGetValue(callsign, out dtLiftoff);
+            TrackingAircraftStatus acStatus = null;
+            trackDateTimeLeftGround.TryGetValue(callsign, out acStatus);
 
-            if (dtLiftoff == DateTime.MinValue)
+            if (acStatus == null || acStatus.OnGround || acStatus.LiftoffTime == DateTime.MinValue)
                 return null;
 
-            TimeSpan tsTimeSinceLiftoff = DateTime.UtcNow - dtLiftoff;
+            TimeSpan tsTimeSinceLiftoff = DateTime.UtcNow - acStatus.LiftoffTime;
 
             double displayTime = 3.0;
             if (flightDataRecord != null)
@@ -87,7 +82,7 @@ namespace VatSys.Plugins
                 {
                     Type = itemType,
                     ForeColourIdentity = Colours.Identities.StaticTools,
-                    Text = tsTimeSinceLiftoff.ToString(" m\\:ss")
+                    Text = tsTimeSinceLiftoff.ToString("m\\:ss")
                 };
             }
             else

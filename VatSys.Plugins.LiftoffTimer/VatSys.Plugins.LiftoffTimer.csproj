@@ -7,7 +7,7 @@
     <ProjectGuid>{001983F9-17FB-41CC-B21A-B467F93962BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VatSys.Plugins.LiftoffTimer</RootNamespace>
+    <RootNamespace>VatSys.Plugins</RootNamespace>
     <AssemblyName>VatSys.Plugins.LiftoffTimer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="LiftoffTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrackingAircraftStatus.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
