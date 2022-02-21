@@ -1,8 +1,8 @@
-# VatSys.Plugins
-Plugins for VatSys for use with VatSim
+# vatSys.Plugins
+Plugins for vatSys for use with VatSim
 
 # Liftoff Timer
-Provides a timer label in the each aircraft's track tags to indicate how long it has been since the aircraft lifted off.
+Provides a timer label in the each aircraft's track tags to indicate how long it has been since the aircraft lifted off.  
 The timer will disappear after the following times:
 - Medium aircraft : 2 minutes
 - Heavy/Super Heavy aircraft : 3 minutes
@@ -11,8 +11,8 @@ The timer will disappear after the following times:
 ![image](https://user-images.githubusercontent.com/35731217/154901022-4e9aab5f-b8c5-48d2-8357-1ae64a8e3642.png)   ![image](https://user-images.githubusercontent.com/35731217/154906458-038fcd71-69fb-4abc-b5b4-4a5360fdf834.png)
 
 
-Download the DLL from the Releases area and place it in the Plugins folder for vatSys (typically C:\Program Files (x86)\vatSys\bin\Plugins).
-You will also need to either download the custom Labels.xml from above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF".
+Download the [DLL](https://github.com/JstnMrshll/vatSys.Plugins/releases/download/v2020.2.21.0/vatSys.Plugins.LiftoffTimer.dll) from the [Releases](https://github.com/JstnMrshll/vatSys.Plugins/releases) area and place it in the Plugins folder for vatSys (typically C:\Program Files (x86)\vatSys\bin\Plugins).  
+You will also need to either download the custom [Labels.xml](https://github.com/JstnMrshll/vatSys.Plugins/blob/master/Supporting%20Files/Labels.xml) from the [Supporting Files](https://github.com/JstnMrshll/vatSys.Plugins/tree/master/Supporting%20Files) folder above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF". The Labels file is located in C:\Users\<USERNAME>\Documents\vatSys Files\Profiles\Australia
 
 # FDR Enhancer (to be released soon)
 Supplements the data within an FDR data record. Currently it provides:
