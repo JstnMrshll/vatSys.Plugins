@@ -7,7 +7,11 @@ Supplements the data within an FDR data record. Currently it provides:
 - Destination airport name and first waypoint in local label after runway has been selected
 
 # Liftoff Timer
-Provides a timer label in the each aircraft's track tags to indicate how long it has been since the aircraft took off.
+Provides a timer label in the each aircraft's track tags to indicate how long it has been since the aircraft lifted off.
+The timer will disappear after the following times:
+Medium aircraft : 2 minutes
+Heavy/Super Heavy aircraft : 3 minutes
+Unknown wake type : 3 minutes
 ![image](https://user-images.githubusercontent.com/35731217/154901022-4e9aab5f-b8c5-48d2-8357-1ae64a8e3642.png)
 
 Download the DLL from the Releases area and place it in the Plugins folder for vatSys (typically C:\Program Files (x86)\vatSys\bin\Plugins).
