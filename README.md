@@ -8,7 +8,8 @@ The timer will disappear after the following times:
 - Heavy/Super Heavy aircraft : 3 minutes
 - Unknown wake type : 3 minutes
 
-![image](https://user-images.githubusercontent.com/35731217/154901022-4e9aab5f-b8c5-48d2-8357-1ae64a8e3642.png)
+![image](https://user-images.githubusercontent.com/35731217/154901022-4e9aab5f-b8c5-48d2-8357-1ae64a8e3642.png)![image](https://user-images.githubusercontent.com/35731217/154906458-038fcd71-69fb-4abc-b5b4-4a5360fdf834.png)
+
 
 Download the DLL from the Releases area and place it in the Plugins folder for vatSys (typically C:\Program Files (x86)\vatSys\bin\Plugins).
 You will also need to either download the custom Labels.xml from above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF".
