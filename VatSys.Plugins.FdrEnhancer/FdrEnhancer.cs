@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
-namespace VatSys.Plugins
+namespace vatSys.Plugins
 {
     [Export(typeof(IPlugin))]
     public class FdrEnhancer : IPlugin

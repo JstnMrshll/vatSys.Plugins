@@ -7,8 +7,8 @@
     <ProjectGuid>{B0DB8ABC-327E-45AB-95CA-025282FD0148}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VatSys.Plugin.FdrEnhancer</RootNamespace>
-    <AssemblyName>VatSys.Plugin.FdrEnhancer</AssemblyName>
+    <RootNamespace>vatSys.Plugin.FdrEnhancer</RootNamespace>
+    <AssemblyName>vatSys.Plugin.FdrEnhancer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

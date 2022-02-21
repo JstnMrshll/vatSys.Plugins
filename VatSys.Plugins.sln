@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VatSys.Plugins.FdrEnhancer", "VatSys.Plugins.FdrEnhancer\VatSys.Plugins.FdrEnhancer.csproj", "{B0DB8ABC-327E-45AB-95CA-025282FD0148}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vatSys.Plugins.FdrEnhancer", "VatSys.Plugins.FdrEnhancer\vatSys.Plugins.FdrEnhancer.csproj", "{B0DB8ABC-327E-45AB-95CA-025282FD0148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VatSys.Plugins.LiftoffTimer", "VatSys.Plugins.LiftoffTimer\VatSys.Plugins.LiftoffTimer.csproj", "{001983F9-17FB-41CC-B21A-B467F93962BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vatSys.Plugins.LiftoffTimer", "VatSys.Plugins.LiftoffTimer\vatSys.Plugins.LiftoffTimer.csproj", "{001983F9-17FB-41CC-B21A-B467F93962BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

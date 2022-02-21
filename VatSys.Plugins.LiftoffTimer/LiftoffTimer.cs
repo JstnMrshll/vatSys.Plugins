@@ -7,7 +7,7 @@ using vatsys.Plugin;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace VatSys.Plugins
+namespace vatSys.Plugins
 {
     [Export(typeof(IPlugin))]
     public class LiftoffTimer : IPlugin
@@ -31,11 +31,11 @@ namespace VatSys.Plugins
             if (callsign == "")
                 return;
 
-            TrackingAircraftStatus acStatus = new TrackingAircraftStatus(updated.OnGround);
+            TrackingAircraftStatus acStatus = new TrackingAircraftStatus(updated.OnGround, updated.CorrectedAltitude);
 
             acStatus = trackDateTimeLeftGround.GetOrAdd(callsign, acStatus);
 
-            if (acStatus.OnGround && !updated.OnGround)
+            if (acStatus.OnGround && !updated.OnGround && (updated.CorrectedAltitude > (acStatus.Altitude + 50)))
             {
                 TrackingAircraftStatus newStatus = new TrackingAircraftStatus(updated.OnGround, DateTime.UtcNow);
 
