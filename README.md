@@ -13,7 +13,7 @@ The timer will disappear after the following times:
 Download the DLL from the Releases area and place it in the Plugins folder for vatSys (typically C:\Program Files (x86)\vatSys\bin\Plugins).
 You will also need to either download the custom Labels.xml from above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF".
 
-# FDR Enhancer (will be released soon)
+# FDR Enhancer (to be released soon)
 Supplements the data within an FDR data record. Currently it provides:
 - Destination Airport and Airline callsign in the local label when no runway is selected or it is past the PREA state.
 - Destination airport name and first waypoint in local label after runway has been selected and it is in a PREA state. This allows easier provision of clearances without having to open up the flight plan details.
