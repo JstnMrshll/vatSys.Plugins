@@ -1,5 +1,5 @@
-# VatSys.Plugins
-Plugins for VatSys for use with VatSim
+# vatSys.Plugins
+Plugins for vatSys for use with VatSim
 
 # Liftoff Timer
 Provides a timer label in the each aircraft's track tags to indicate how long it has been since the aircraft lifted off.  
