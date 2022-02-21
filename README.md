@@ -12,7 +12,7 @@ The timer will disappear after the following times:
 
 
 Download the DLL from the Releases area and place it in the Plugins folder for vatSys (typically C:\Program Files (x86)\vatSys\bin\Plugins).
-You will also need to either download the custom Labels.xml from above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF".
+You will also need to either download the custom Labels.xml from the "Supporting Files" folder above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF". The Labels file is located in C:\Users\<USERNAME>\Documents\vatSys Files\Profiles\Australia
 
 # FDR Enhancer (to be released soon)
 Supplements the data within an FDR data record. Currently it provides:
