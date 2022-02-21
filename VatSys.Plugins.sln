@@ -7,11 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vatSys.Plugins.FdrEnhancer"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vatSys.Plugins.LiftoffTimer", "VatSys.Plugins.LiftoffTimer\vatSys.Plugins.LiftoffTimer.csproj", "{001983F9-17FB-41CC-B21A-B467F93962BE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Download Files", "Download Files", "{ADA70C5D-7AB2-4249-9B17-9D2FFBA30F50}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\Documents\vatSys Files\Profiles\Australia\Labels.xml = ..\..\..\Documents\vatSys Files\Profiles\Australia\Labels.xml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
