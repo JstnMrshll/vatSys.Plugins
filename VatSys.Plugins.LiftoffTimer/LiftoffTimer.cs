@@ -45,7 +45,7 @@ namespace vatSys.Plugins
 
         public CustomLabelItem GetCustomLabelItem(string itemType, Track track, FDP2.FDR flightDataRecord, RDP.RadarTrack radarTrack)
         {
-            if (itemType != LABEL_ITEM)
+            if (itemType != LABEL_ITEM || radarTrack == null)
                 return null;
 
             string callsign = radarTrack.ActualAircraft.Callsign;
