@@ -16,7 +16,7 @@ namespace vatSys.Plugins
         const string stdMsgPrefix = ".";
         //const string airportMsgPrefix = "*";
 
-        string RapidApi_Key;
+        string RapidApi_Key="";
 
         ConcurrentDictionary<string, string> airlineCallsigns = new ConcurrentDictionary<string, string>();
         ConcurrentDictionary<string, string> airportNames = new ConcurrentDictionary<string, string>();
@@ -102,22 +102,25 @@ namespace vatSys.Plugins
                     updated.GlobalOpData = "^RX";
                 }
 
-                Coordinate source = vatsys.Airspace2.GetAirport(updated.DepAirport).LatLong;
-                Coordinate destination = vatsys.Airspace2.GetAirport(updated.DesAirport).LatLong;
+                Airspace2.Airport sourceAirport = vatsys.Airspace2.GetAirport(updated.DepAirport);
+                Airspace2.Airport destinationAirport = vatsys.Airspace2.GetAirport(updated.DesAirport);
 
-                double bearingBetweenAirports = CalculateBearingFromRads(source.LatitudeRads, source.LongitudeRads, destination.LatitudeRads, destination.LongitudeRads);
+                if (sourceAirport != null && destinationAirport != null && sourceAirport.LatLong != null && destinationAirport.LatLong != null)
+                {
+                    double bearingBetweenAirports = CalculateBearingFromRads(sourceAirport.LatLong.LatitudeRads, sourceAirport.LatLong.LongitudeRads, destinationAirport.LatLong.LatitudeRads, destinationAirport.LatLong.LongitudeRads);
 
-                bool needsEven = (bearingBetweenAirports >= 180 && bearingBetweenAirports < 360);
-                bool evenRFL = (updated.RFL % 20 == 0);
-                bool evenCFL = (updated.CFLUpper % 20 == 0);
+                    bool needsEven = (bearingBetweenAirports >= 180 && bearingBetweenAirports < 360);
+                    bool evenRFL = (updated.RFL % 20 == 0);
+                    bool evenCFL = (updated.CFLUpper % 20 == 0);
 
-                //if (updated.LocalOpData == "")
-                //    updated.LocalOpData += bearingBetweenAirports.ToString("##0");
+                    //if (updated.LocalOpData == "")
+                    //    updated.LocalOpData += bearingBetweenAirports.ToString("##0");
 
-                if (updated.RFL > 0 && needsEven && !evenRFL && !updated.GlobalOpData.Contains(@"@RFL"))
-                    updated.GlobalOpData += @"@RFL";
-                if (updated.CFLUpper > 0 && needsEven && !evenCFL && !updated.GlobalOpData.Contains(@"@CFL"))
-                    updated.GlobalOpData += @"@CFL";
+                    if (updated.RFL > 0 && needsEven && !evenRFL && !updated.GlobalOpData.Contains(@"@RFL"))
+                        updated.GlobalOpData += @"@RFL";
+                    if (updated.CFLUpper > 0 && needsEven && !evenCFL && !updated.GlobalOpData.Contains(@"@CFL"))
+                        updated.GlobalOpData += @"@CFL";
+                }
             }
         }
 

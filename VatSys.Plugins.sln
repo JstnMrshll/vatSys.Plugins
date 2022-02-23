@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vatSys.Plugins.FdrEnhancer"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vatSys.Plugins.LiftoffTimer", "VatSys.Plugins.LiftoffTimer\vatSys.Plugins.LiftoffTimer.csproj", "{001983F9-17FB-41CC-B21A-B467F93962BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Download Files", "Download Files\Download Files.csproj", "{48BC57F8-0052-463D-8475-9FF727C81AC8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{001983F9-17FB-41CC-B21A-B467F93962BE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{001983F9-17FB-41CC-B21A-B467F93962BE}.Release|x86.ActiveCfg = Release|x86
 		{001983F9-17FB-41CC-B21A-B467F93962BE}.Release|x86.Build.0 = Release|x86
-		{48BC57F8-0052-463D-8475-9FF727C81AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48BC57F8-0052-463D-8475-9FF727C81AC8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{48BC57F8-0052-463D-8475-9FF727C81AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48BC57F8-0052-463D-8475-9FF727C81AC8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

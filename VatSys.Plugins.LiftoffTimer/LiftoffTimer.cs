@@ -26,26 +26,29 @@ namespace vatSys.Plugins
 
         public void OnRadarTrackUpdate(RDP.RadarTrack updated)
         {
-            string callsign = updated.ActualAircraft.Callsign;
-
-            if (callsign == "")
-                return;
-
-            TrackingAircraftStatus acStatus = new TrackingAircraftStatus(updated.OnGround, updated.CorrectedAltitude);
-
-            acStatus = trackDateTimeLeftGround.GetOrAdd(callsign, acStatus);
-
-            if (acStatus.OnGround && !updated.OnGround && (updated.CorrectedAltitude > (acStatus.Altitude + 50)))
+            if (updated.ActualAircraft != null)
             {
-                TrackingAircraftStatus newStatus = new TrackingAircraftStatus(updated.OnGround, DateTime.UtcNow);
+                string callsign = updated.ActualAircraft.Callsign;
 
-                trackDateTimeLeftGround.TryUpdate(callsign, newStatus, acStatus);
+                if (callsign == "")
+                    return;
+
+                TrackingAircraftStatus acStatus = new TrackingAircraftStatus(updated.OnGround, updated.CorrectedAltitude);
+
+                acStatus = trackDateTimeLeftGround.GetOrAdd(callsign, acStatus);
+
+                if (acStatus != null && acStatus.OnGround && !updated.OnGround && (updated.CorrectedAltitude > (acStatus.Altitude + 50)))
+                {
+                    TrackingAircraftStatus newStatus = new TrackingAircraftStatus(updated.OnGround, DateTime.UtcNow);
+
+                    trackDateTimeLeftGround.TryUpdate(callsign, newStatus, acStatus);
+                }
             }
         }
 
         public CustomLabelItem GetCustomLabelItem(string itemType, Track track, FDP2.FDR flightDataRecord, RDP.RadarTrack radarTrack)
         {
-            if (itemType != LABEL_ITEM || radarTrack == null)
+            if (itemType != LABEL_ITEM || radarTrack == null || radarTrack.ActualAircraft == null)
                 return null;
 
             string callsign = radarTrack.ActualAircraft.Callsign;
@@ -71,10 +74,18 @@ namespace vatSys.Plugins
                         displayTime = 2.0;
                         break;
 
+                    case "L":
+                        displayTime = 0.0;
+                        break;
+
                     default:
                         break;
                 }
             }
+
+            //Colours.Identities color;
+            //if (flightDataRecord.IsTrackedByMe)
+            //    color = Colours.Identities.StaticTools;
 
             if (tsTimeSinceLiftoff.TotalMinutes <= displayTime)
             {
@@ -86,8 +97,12 @@ namespace vatSys.Plugins
                 };
             }
             else
-                return null;
+            {
+                if (trackDateTimeLeftGround.ContainsKey(callsign))
+                    trackDateTimeLeftGround.TryRemove(callsign, out acStatus);
 
+                return null;
+            }
         }
 
         //Here we can set a custom colour for the track and label. Otherwise return null.
