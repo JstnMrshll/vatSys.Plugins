@@ -93,7 +93,8 @@ namespace vatSys.Plugins
                 {
                     Type = itemType,
                     ForeColourIdentity = Colours.Identities.StaticTools,
-                    Text = tsTimeSinceLiftoff.ToString("m\\:ss")
+                    Text = tsTimeSinceLiftoff.ToString("m\\:ss"),
+                    OnMouseClick = ItemMouseClick
                 };
             }
             else
@@ -116,6 +117,20 @@ namespace vatSys.Plugins
             return null;
         }
 
+        //Here we can handle a mouse click on our custom label item. Set handled to true if we did something to prevent vatsys processing the click further
+        private void ItemMouseClick(CustomLabelItemMouseClickEventArgs e)
+        {
+            if (e.Button == CustomLabelItemMouseButton.Right)
+            {
+                string callsign = e.Track.GetRadarTrack().ActualAircraft.Callsign;
+
+                TrackingAircraftStatus acStatus = null;
+                if (trackDateTimeLeftGround.ContainsKey(callsign))
+                    trackDateTimeLeftGround.TryRemove(callsign, out acStatus);
+
+                e.Handled = true;
+            }
+        }
     }
 
 }
