@@ -1,6 +1,6 @@
 // To allow the plugin to retrieve the airline callsign and the airport name,
 // please register an account at https://www.rapidapi.com.
-// Once you have registered, click "My Apps" on the navigation menu at the top right.
+// Once you have registered, within the RapidAPI website, click "My Apps" on the navigation menu at the top right.
 // Then click "My Apps" on the left hand side then click the Security icon on the row for your "default-application".
 // Click the view icon in the "Key" box and copy/paste the key value after "RAPIDAPI_KEY = " below.
 // If you do not have a key listed, click "Add New Key". 
