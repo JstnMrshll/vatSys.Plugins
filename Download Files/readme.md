@@ -13,5 +13,5 @@ Standard folder locations:
 - Plugins folder > C:\Program Files (x86)\vatSys\bin\Plugins
 - Profile folder > C:\Users\\<USERNAME\>\Documents\vatSys Files\Profiles\Australia
   
-## Regards Labels.xml
+## Regarding Labels.xml
 You will also need to either download the custom Labels.xml from above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF".
