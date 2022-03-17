@@ -1,5 +1,5 @@
 # vatSys.Plugins
-Plugins for vatSys for use with VatSim
+Plugins for vatSys for use with VatSim. For instructions on how to install them, go to [Download Files](https://github.com/JstnMrshll/vatSys.Plugins/tree/master/Download%20Files)
 
 # Liftoff Timer
 Provides a timer label in the each aircraft's track tags to indicate how long it has been since the aircraft lifted off.  
@@ -7,12 +7,12 @@ The timer will disappear after the following times:
 - Medium aircraft : 2 minutes
 - Heavy/Super Heavy aircraft : 3 minutes
 - Unknown wake type : 3 minutes
-Or you can right click on the timer to hide it
+
+You can also right click on the timer to hide it
 
 ![image](https://user-images.githubusercontent.com/35731217/154901022-4e9aab5f-b8c5-48d2-8357-1ae64a8e3642.png)   ![image](https://user-images.githubusercontent.com/35731217/154906458-038fcd71-69fb-4abc-b5b4-4a5360fdf834.png)
 
 
-Go to the [Download Files](https://github.com/JstnMrshll/vatSys.Plugins/tree/master/Download%20Files) for instructions on how to install it.
 
 # FDR Enhancer
 Supplements the data within an FDR data record. Currently it provides:
