@@ -7,14 +7,14 @@ The timer will disappear after the following times:
 - Medium aircraft : 2 minutes
 - Heavy/Super Heavy aircraft : 3 minutes
 - Unknown wake type : 3 minutes
+Or you can right click on the timer to hide it
 
 ![image](https://user-images.githubusercontent.com/35731217/154901022-4e9aab5f-b8c5-48d2-8357-1ae64a8e3642.png)   ![image](https://user-images.githubusercontent.com/35731217/154906458-038fcd71-69fb-4abc-b5b4-4a5360fdf834.png)
 
 
-Download the [DLL](https://github.com/JstnMrshll/vatSys.Plugins/releases/download/v2020.2.21.0/vatSys.Plugins.LiftoffTimer.dll) from the [Releases](https://github.com/JstnMrshll/vatSys.Plugins/releases) area and place it in the Plugins folder for vatSys (typically C:\Program Files (x86)\vatSys\bin\Plugins).  
-You will also need to either download the custom [Labels.xml](https://github.com/JstnMrshll/vatSys.Plugins/blob/master/Supporting%20Files/Labels.xml) from the [Supporting Files](https://github.com/JstnMrshll/vatSys.Plugins/tree/master/Supporting%20Files) folder above or add custom labels where you want the timer to appear in your existing Labels.xml. The label tag needed is "TIME_SINCE_LIFTOFF". The Labels file is located in C:\Users\<USERNAME>\Documents\vatSys Files\Profiles\Australia
+Go to the [Download Files](https://github.com/JstnMrshll/vatSys.Plugins/tree/master/Download%20Files) for instructions on how to install it.
 
-# FDR Enhancer (to be released soon)
+# FDR Enhancer
 Supplements the data within an FDR data record. Currently it provides:
 - Destination Airport and Airline callsign in the local label when no runway is selected or it is past the PREA state.
 - Destination airport name and first waypoint in local label after runway has been selected and it is in a PREA state. This allows easier provision of clearances without having to open up the flight plan details.
